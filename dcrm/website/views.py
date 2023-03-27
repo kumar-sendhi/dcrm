@@ -52,3 +52,14 @@ def register_user(request):
 		return render(request, 'register.html', {'form':form})
 
 	return render(request, 'register.html', {'form':form})
+
+
+def customer_record(request,pk):
+    if request.user.is_authenticated:
+        #Look up Records
+        customer_record = Record.objects.get(id=pk)
+        return render(request, 'record.html', {'customer_record':customer_record})
+    else:
+        messages.success(request,"You have to login to view this page")
+        return redirect('home')
+
